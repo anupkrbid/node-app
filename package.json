@@ -1,0 +1,30 @@
+{
+  "name": "node-app",
+  "version": "1.0.0",
+  "description": "A simple node.js web application",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anupkrbid/node-app.git"
+  },
+  "keywords": [
+    "node",
+    "express"
+  ],
+  "author": "Anup Kumar Bid",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anupkrbid/node-app/issues"
+  },
+  "homepage": "https://github.com/anupkrbid/node-app#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}

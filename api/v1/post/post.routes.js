@@ -4,7 +4,7 @@ const postRouter = express.Router();
 
 postRouter.get("/posts", (req, res, next) => {
   res.send(
-    `<form action="/posts" method="post"><input name="title"><button type="submit">Submit</button></form>`
+    `<form action="/api/v1/posts" method="post"><input name="title"><button type="submit">Submit</button></form>`
   );
 });
 

@@ -1,6 +1,9 @@
+const path = require("path");
+
 const express = require("express");
 
 const apiRoutes = require("./api/api.routes");
+const rootDir = require("./utils/root-dir");
 
 const appRouter = express.Router();
 
@@ -11,7 +14,8 @@ appRouter.get("/", (req, res, next) => {
 });
 
 appRouter.use((req, res, next) => {
-  res.status(404).send("<h1>Page Not Found</h1>");
+  console.log(rootDir);
+  res.status(404).sendFile(path.join(rootDir, "views", "404.html"));
 });
 
 module.exports = appRouter;

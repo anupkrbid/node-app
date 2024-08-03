@@ -23,7 +23,8 @@
   "homepage": "https://github.com/anupkrbid/node-app#readme",
   "dependencies": {
     "body-parser": "^1.20.2",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "express-handlebars": "3.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.4"

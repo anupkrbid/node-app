@@ -43,7 +43,19 @@ show dbs
 Connect to a databases (it will create it if it doesnot exist):
 
 ```sh
-use shop # use <DB_NAME>
+use <DB_NAME>
+```
+
+Drop database
+
+```sh
+db.dropDatabase()
+```
+
+Drop Collection
+
+```sh
+db.<COLLECTION_NAME>.drop()
 ```
 
 ### CRUD Operations

@@ -243,3 +243,20 @@ Will look for gaming inside tag key or gaming inside an object with tag key
 ```sh
 db.products.find({ tag: "gaming" }).pretty()
 ```
+
+### Data Types
+
+- Text (limitation - max 16mb)
+- Boolean
+- Number [NumberInt(int32), NumberLong(int64), NumberDecimal]
+- Id [ObjectId]
+- Date [ISODate, Timestamp]
+- Embedded Documents (limitation - 100 levels of embedded documents)
+- Array
+
+#### References
+
+- [MongoDB DataType Limits](https://docs.mongodb.com/manual/reference/limits/)
+- [All DataTypes Supported by MongoDB](https://docs.mongodb.com/manual/reference/bson-types/)
+
+### Schemas & Relations

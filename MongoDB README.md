@@ -260,3 +260,114 @@ db.products.find({ tag: "gaming" }).pretty()
 - [All DataTypes Supported by MongoDB](https://docs.mongodb.com/manual/reference/bson-types/)
 
 ### Schemas & Relations
+
+#### Lookup
+
+```sh
+db.books.aggregate([{ $lookup: { from: "authors", localField: "authors", foreignField: "_id", as: "creators" }  }])
+```
+
+#### Schema Validation
+
+- **validationLevel** (which documents gets validated?)
+  - _strict_ (all inserts and updates)
+  - _moderate_ (all inserts and updates to correct document)
+- **validationAction** (what happens if validation fails)
+  - _error_ (throw error and deny insert/update)
+  - _warn_ (log warning but proceed)
+
+##### Set Validation Schema
+
+```js
+db.createCollection("posts", {
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["title", "text", "creator", "comments"],
+      properties: {
+        title: {
+          bsonType: "string",
+          description: "must be a string and is required",
+        },
+        text: {
+          bsonType: "string",
+          description: "must be a string and is required",
+        },
+        creator: {
+          bsonType: "objectId",
+          description: "must be an objectid and is required",
+        },
+        comments: {
+          bsonType: "array",
+          description: "must be an array and is required",
+          items: {
+            bsonType: "object",
+            required: ["text", "author"],
+            properties: {
+              text: {
+                bsonType: "string",
+                description: "must be a string and is required",
+              },
+              author: {
+                bsonType: "objectId",
+                description: "must be an objectid and is required",
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+});
+```
+
+##### Update Validation Schema
+
+```js
+db.runCommand({
+  collMod: "posts",
+  validator: {
+    $jsonSchema: {
+      bsonType: "object",
+      required: ["title", "text", "creator", "comments"],
+      properties: {
+        title: {
+          bsonType: "string",
+          description: "must be a string and is required",
+        },
+        text: {
+          bsonType: "string",
+          description: "must be a string and is required",
+        },
+        creator: {
+          bsonType: "objectId",
+          description: "must be an objectid and is required",
+        },
+        comments: {
+          bsonType: "array",
+          description: "must be an array and is required",
+          items: {
+            bsonType: "object",
+            required: ["text", "author"],
+            properties: {
+              text: {
+                bsonType: "string",
+                description: "must be a string and is required",
+              },
+              author: {
+                bsonType: "objectId",
+                description: "must be an objectid and is required",
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+  validationAction: "warn",
+});
+```
+
+#### References
+
+[More on Schema Validation](https://docs.mongodb.com/manual/core/schema-validation/)

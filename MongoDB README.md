@@ -24,7 +24,36 @@ SOME_FOLDER_WITH_READ_WRITE_ACCESS
 Start DB Server:
 
 ```sh
-mongod --dbpath="PATH_TO_MongoDB_DATA_FOLDER" --logpath="PATH_TO_MongoDB_LOG_FILE" --port="PORT_NO"
+mongod --dbpath="PATH_TO_MongoDB_DATA_FOLDER" --logpath="PATH_TO_MongoDB_LOG_FILE" --port="PORT_NO" --directoryperdb --fork
+```
+
+Running DB as a Service:
+
+mongodb.cfg
+
+```sh
+storage:
+  dbPath: "/your/path/to/the/db/folder"
+systemLog:
+  destination:  file
+  path: "/your/path/to/the/logs.log"
+```
+
+```sh
+mongod --config="PATH_TO_MongoDB_CFG_FILE"
+```
+
+Other Server Options:
+
+```sh
+mongod --help
+```
+
+Shutdown a Forked DB Server:
+
+```sh
+use admin
+db.shutdownServer()
 ```
 
 Run MongoDB Shell:
@@ -32,6 +61,12 @@ Run MongoDB Shell:
 ```sh
 mongosh
 cls # to clear the shell
+```
+
+Other Shell Options:
+
+```sh
+mongosh --help
 ```
 
 List all databases:
@@ -57,6 +92,12 @@ Drop Collection
 ```sh
 db.<COLLECTION_NAME>.drop()
 ```
+
+#### References
+
+- [More Details about Config Files](https://docs.mongodb.com/manual/reference/configuration-options/)
+- [More Details about the Shell (mongo) Options](https://www.mongodb.com/docs/manual/reference/method/)
+- [More Details about the Server (mongod) Options](https://docs.mongodb.com/manual/reference/program/mongod/)
 
 ### CRUD Operations
 

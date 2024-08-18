@@ -451,3 +451,11 @@ mongoimport <PATH_TO_JSON_FILE> -d <DATABASE_NAME> -c <COLLeCTION_NAME> --jsonAr
 `-c`: collection name
 `--jsonArray`: tells MongoDB that threr are more then one entries
 `--drop`: tells MongoDB to drop the exisitng collection an then import these data or else it will be appended to it
+
+#### References
+
+- [insertOne()](https://docs.mongodb.com/manual/reference/method/db.collection.insertOne/)
+- [insertMany()](https://docs.mongodb.com/manual/reference/method/db.collection.insertMany/)
+- [Atomicity](https://docs.mongodb.com/manual/core/write-operations-atomicity/#atomicity)
+- [Write Concern](https://docs.mongodb.com/manual/reference/write-concern/)
+- [Using mongoimport](https://docs.mongodb.com/manual/reference/program/mongoimport/index.html)

@@ -101,6 +101,8 @@ db.<COLLECTION_NAME>.drop()
 
 ### CRUD Operations
 
+Atomicity - MongoDB CRUD operations are `Atomic` in nature but on a per document level, this includes embedded documents.
+
 Create
 
 ```sh
@@ -412,3 +414,40 @@ db.runCommand({
 #### References
 
 [More on Schema Validation](https://docs.mongodb.com/manual/core/schema-validation/)
+
+### MongoDB Compass
+
+#### References
+
+- [The MongoDB Compass Docs](https://docs.mongodb.com/compass/master/install/)
+- [Only available in the Enterprise Edition](https://docs.mongodb.com/compass/master/schema/)
+
+### Create
+
+#### Ordered Insert
+
+When doing insertMany if any of the documents fails to insert then the operations stop there and mongo db doesnot try to insert the rest of the valid items this is the default behaviour where `{ ordered: true }`, when set to true modo db will try to insert the other valid items in the array `{ ordered: false }`.
+`Note:` in both these cases the items that are already inserter are not rolled back incase of any aerror, this is the default behaviou of MongoDB.
+
+#### Write Concern
+
+Write concern describes the level of acknowledgment requested from MongoDB for write operations to a standalone mongod , replica sets, or sharded clusters
+
+- Settings `w: 1` means we will get an acknowledgment when the data is wriiten to the primary DB and not to the replica, which telss that it will eventually be wriiten to all replicas
+- Setting `j: undefined` means we will not wait for the data to be written to the journal, if we want to want for the data to be written to the hournal we will set `j: true` (journals are like a todo list mentained by the mogodb engine which tells what data needs to be added to the other replicas, this is so that write are faster and even if the server crashes mogodb can know what operations were left to perform)
+- Settings `wtimeout: 300` means if the acknowledgment taken more than 300ms in this case to come then we will cancel it, setting it too low will cause writes to fail even if they would have passed eventually
+
+eg: `{ writeConcern: { w:1, j: true , wtimeout: 500 }}` means wait for acknowledgment after the data is written to the primary storage and the journal ans incase the time taken for the acknowledgment to arrive is more than 500ms then cancel the operation
+
+#### Importing Data
+
+This command is used to import existing data into a mongodb collection in a certain database. For this you need to be out of the mongodb shell
+
+```sh
+mongoimport <PATH_TO_JSON_FILE> -d <DATABASE_NAME> -c <COLLeCTION_NAME> --jsonArray  --drop
+```
+
+`-d`: database name
+`-c`: collection name
+`--jsonArray`: tells MongoDB that threr are more then one entries
+`--drop`: tells MongoDB to drop the exisitng collection an then import these data or else it will be appended to it
